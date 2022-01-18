@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import Select from 'react-select'
 import Universes from './Universes'
 
@@ -65,27 +65,39 @@ export default function Home() {
     const makeUniversesButton = () => {
         if (state.showUniverses) {
             return (
-                <Button
-                    size="sm"
-                    style={{ marginLeft: '10px' }}
-                    onClick={() => {
-                        window.electron.ipcRenderer.invoke('setShowUniverses', false)
-                            .then(res => setstate(old => ({ ...old, showUniverses: res })))
-                            .catch(err => console.error(err))
-                    }}
-                >Hide Universes</Button>
+                <OverlayTrigger
+                    placement='right'
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderTooltip}
+                >
+                    <Button
+                        size="sm"
+                        style={{ marginLeft: '10px' }}
+                        onClick={() => {
+                            window.electron.ipcRenderer.invoke('setShowUniverses', false)
+                                .then(res => setstate(old => ({ ...old, showUniverses: res })))
+                                .catch(err => console.error(err))
+                        }}
+                    >Hide Universes</Button>
+                </OverlayTrigger>
             )
         } else {
             return (
-                <Button
-                    size="sm"
-                    style={{ marginLeft: '10px' }}
-                    onClick={() => {
-                        window.electron.ipcRenderer.invoke('setShowUniverses', true)
-                            .then(res => setstate(old => ({ ...old, showUniverses: res })))
-                            .catch(err => console.error(err))
-                    }}
-                >Show Universes</Button>
+                <OverlayTrigger
+                    placement='right'
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderTooltip}
+                >
+                    <Button
+                        size="sm"
+                        style={{ marginLeft: '10px' }}
+                        onClick={() => {
+                            window.electron.ipcRenderer.invoke('setShowUniverses', true)
+                                .then(res => setstate(old => ({ ...old, showUniverses: res })))
+                                .catch(err => console.error(err))
+                        }}
+                    >Show Universes</Button>
+                </OverlayTrigger>
             )
         }
 
@@ -169,6 +181,16 @@ export default function Home() {
             return { label: `${currentInterface.name} --- ${currentInterface.address}`, value: { name: currentInterface.name, address: currentInterface.address } }
         }
     }
+
+    const renderTooltip = (
+        <Tooltip>
+            <div style={{color:'red', fontWeight:'bold'}}>Warning</div>
+            <div>
+                Rendering universes is taxing on the system and should only be done breifly for testing purposes
+            </div>
+        </Tooltip>
+    )
+
 
     return (
         <div>
