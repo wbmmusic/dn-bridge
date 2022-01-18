@@ -58,8 +58,6 @@ else {
 
 let activeInterface = null
 
-
-
 const createWindow = () => {
     // Create the browser window.
     win = new BrowserWindow({
