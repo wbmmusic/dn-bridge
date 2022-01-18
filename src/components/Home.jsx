@@ -184,7 +184,7 @@ export default function Home() {
 
     const renderTooltip = (
         <Tooltip>
-            <div style={{color:'red', fontWeight:'bold'}}>Warning</div>
+            <div style={{ color: 'red', fontWeight: 'bold' }}>Warning</div>
             <div>
                 Rendering universes is taxing on the system and should only be done breifly for testing purposes
             </div>
@@ -219,11 +219,12 @@ export default function Home() {
                     {makeRunStop()}
                 </div>
             </div>
-            <div style={{ marginTop: '10px' }}>
+            <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>
                 {makeUniversesButton()}
-                <hr />
-                {makeUniverses()}
+                <div style={{ padding: '0px 10px', fontSize: "12px" }}>Set artnet destination address to interface address.  Enable output to start sending artnet to venue ip.</div>
             </div>
+            <hr />
+            {makeUniverses()}
         </div>
     )
 }

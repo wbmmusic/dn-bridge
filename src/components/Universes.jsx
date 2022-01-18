@@ -40,7 +40,7 @@ export default function Universes() {
                         </div>
                     </div>
                 )
-            }
+            } else return <div />
         })
     )
 

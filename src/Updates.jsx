@@ -34,7 +34,7 @@ export default function Updates() {
 
     const installAction = (
         <Fragment>
-            <Button size="sm" color='error' size="small" onClick={() => install()}>Relaunch App</Button>
+            <Button size="sm" color='error' onClick={() => install()}>Relaunch App</Button>
             <IconButton
                 size="small"
                 aria-label="close"
