@@ -1,12 +1,16 @@
 {
     "name": "dn-bridge",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "author": "Marece Williams",
     "description": "React and Electron Awesome App",
     "homepage": "./",
     "main": "public/main.js",
     "private": true,
     "dependencies": {
+        "@emotion/react": "^11.7.1",
+        "@emotion/styled": "^11.6.0",
+        "@mui/icons-material": "^5.3.0",
+        "@mui/material": "^5.3.0",
         "@testing-library/jest-dom": "^5.16.1",
         "@testing-library/react": "^12.1.2",
         "@testing-library/user-event": "^13.5.0",
