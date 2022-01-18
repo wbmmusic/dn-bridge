@@ -14,28 +14,29 @@ export default function Universes() {
         }
     }, [])
 
+    const makeHex = (num) => {
+        let hex = num.toString(16)
+        if (hex.length === 1) return `0:${hex}`
+        if (hex.length === 2) return `${hex.charAt(0)}:${hex.charAt(1)}`
+    }
+
     const makeUniverses = () => (
         universes.map((universe, i) => {
             if (universe.length > 0) {
                 return (
-                    <div style={{ marginBottom: '5px', display: 'flex' }}>
-                        <div
-                            style={{
-                                fontSize: '20px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                padding: '4px',
-                                background: 'silver',
-                                borderRight: '4px solid black'
-                            }}
-                        >
-                            <div style={{ display: 'flex', flexDirection: 'column'}}>
-                                <div style={{textAlign: 'center'}}>{i}</div>
-                                <div style={{textAlign: 'center'}}>{"x" + i.toString(16)}</div>
-                            </div>
-                        </div>
+                    <div style={{ marginBottom: '10px', display: 'flex' }}>
                         <div style={{ backgroundColor: 'lightGrey', width: '100%' }}>
                             <Universe data={universe} />
+                            <div>
+                                <div
+                                    style={{
+                                        textAlign: 'center',
+                                        borderTop: '1px solid black',
+                                        borderBottom: '1px solid black',
+                                        fontSize: '12px'
+                                    }}
+                                >{`U ${i} / ${makeHex(i)}`}</div>
+                            </div>
                         </div>
                     </div>
                 )
