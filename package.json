@@ -60,8 +60,8 @@
         "foreman": "^3.0.1"
     },
     "build": {
-        "productName": "Big D's Railroad",
-        "appId": "com.wbm.dcc",
+        "productName": "DNbridge",
+        "appId": "com.wbm.dnbridge",
         "copyright": "WBM Tek",
         "extends": null,
         "npmRebuild": false,
@@ -69,11 +69,12 @@
             "build/**/*",
             "electron/*"
         ],
-        "extraResources": [
-            "public/locos/*"
-        ],
         "win": {
-            "icon": "public/icon.ico"
+            "icon": "public/favicon.ico"
         }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/wbmmusic/dn-bridge.git"
     }
 }
