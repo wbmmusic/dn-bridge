@@ -253,5 +253,6 @@ app.on('ready', () => {
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
+    stopSendingUniverses()
     if (process.platform !== 'darwin') app.quit()
 })
