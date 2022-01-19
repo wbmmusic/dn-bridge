@@ -10,29 +10,30 @@ const dgram = require('dgram');
 console.log("TOP OF MAIN")
 const pathToConfigFile = (join(app.getPath('userData'), 'config.json'))
 let config = {}
-config = JSON.parse(readFileSync(pathToConfigFile))
+const defaultConfig = {
+    venueIP: '',
+    interface: { name: '', address: '' }
+}
+
 const saveConfig = (data) => {
     writeFileSync(pathToConfigFile, JSON.stringify(data, null, '\t'))
     config = JSON.parse(readFileSync(pathToConfigFile))
 }
 
-const thisIP = '192.168.1.198'
+if (!existsSync(pathToConfigFile)) {
+    saveConfig(defaultConfig)
+    console.log("Created Config File")
+} else config = JSON.parse(readFileSync(pathToConfigFile))
 
 
-const defaultConfig = {
-    venueIP: '',
-    interface: { name: '', address: '' }
-}
+
 
 let server = null
 let sender = null
 let outputData = false
 
 
-if (!existsSync(pathToConfigFile)) {
-    saveConfig(defaultConfig)
-    console.log("Created Config File")
-}
+
 
 let virtualVenueAddress = ''
 
