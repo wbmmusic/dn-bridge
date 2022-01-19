@@ -76,7 +76,10 @@
         ],
         "mac": {
             "gatekeeperAssess": "true",
-            "icon": "public/icon.icns"
+            "icon": "public/icon.icns",
+            "dmg": {
+                "icon": "public/dmg.icns"
+            }
         },
         "win": {
             "icon": "public/icon.ico"
