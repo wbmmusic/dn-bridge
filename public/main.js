@@ -26,8 +26,6 @@ if (!existsSync(pathToConfigFile)) {
 } else config = JSON.parse(readFileSync(pathToConfigFile))
 
 
-
-
 let server = null
 let sender = null
 let outputData = false
