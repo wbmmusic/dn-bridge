@@ -106,7 +106,7 @@ const setServer = () => {
             //console.log(JSON.stringify(decodeArtNet(msg).netSubUni, null, '   '))
 
             if (outputData) {
-                console.log("Send Msg To Venue")
+                //console.log("Send Msg To Venue")
                 sender.send(msg, 6454, config.venueIP)
             }
             //console.log(message)
