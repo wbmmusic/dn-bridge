@@ -12,6 +12,6 @@ exports.default = async function notarizing(context) {
         appBundleId: 'com.wbm.dnbridge',
         appPath: `${appOutDir}/${appName}.app`,
         appleId: process.env.APPLEID,
-        appleIdPassword: process.env.APPLEIDPASS,
+        appleIdPassword: process.env.DNBRIDGEAPPLEIDPASS,
     });
 };

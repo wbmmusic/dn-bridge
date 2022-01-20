@@ -186,7 +186,7 @@ export default function Home() {
         <Tooltip>
             <div style={{ color: 'red', fontWeight: 'bold' }}>Warning</div>
             <div>
-                Rendering universes is taxing on the system and should only be done breifly for testing purposes
+                Rendering universes is taxing on the system and should only be done briefly for testing purposes
             </div>
         </Tooltip>
     )

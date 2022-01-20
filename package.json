@@ -1,6 +1,6 @@
 {
     "name": "dn-bridge",
-    "version": "0.0.13",
+    "version": "0.0.14",
     "author": "Marece Williams",
     "description": "React and Electron Awesome App",
     "homepage": "./",
@@ -66,7 +66,7 @@
         "foreman": "^3.0.1"
     },
     "build": {
-        "productName": "DNbridge",
+        "productName": "DN bridge",
         "appId": "com.wbm.dnbridge",
         "copyright": "WBM Tek",
         "extends": null,

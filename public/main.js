@@ -64,7 +64,7 @@ const createWindow = () => {
         height: 500,
         autoHideMenuBar: true,
         show: false,
-        title: 'DN OptiBridge ' + app.getVersion(),
+        title: 'DN bridge ' + app.getVersion(),
         webPreferences: {
             preload: join(__dirname, 'preload.js')
         }
