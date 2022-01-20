@@ -1,6 +1,6 @@
 {
     "name": "dn-bridge",
-    "version": "0.0.11",
+    "version": "0.0.12",
     "author": "Marece Williams",
     "description": "React and Electron Awesome App",
     "homepage": "./",
@@ -61,6 +61,7 @@
     "devDependencies": {
         "electron": "^16.0.7",
         "electron-builder": "^22.14.5",
+        "electron-notarize": "^1.1.1",
         "electron-rebuild": "^3.2.7",
         "foreman": "^3.0.1"
     },
@@ -70,16 +71,21 @@
         "copyright": "WBM Tek",
         "extends": null,
         "npmRebuild": false,
+        "afterSign": "./notarize.js",
         "files": [
             "build/**/*",
             "electron/*"
         ],
         "mac": {
-            "gatekeeperAssess": "true",
-            "icon": "public/icon.icns"
+            "icon": "public/icon.icns",
+            "hardenedRuntime": true,
+            "gatekeeperAssess": false,
+            "entitlements": "build/entitlements.mac.plist",
+            "entitlementsInherit": "build/entitlements.mac.plist"
         },
         "dmg": {
-            "icon": "public/dmg.icns"
+            "icon": "public/dmg.icns",
+            "sign": false
         },
         "win": {
             "icon": "public/icon.ico"
