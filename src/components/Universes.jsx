@@ -5,13 +5,8 @@ export default function Universes() {
     const [universes, setUniverses] = useState([])
 
     useEffect(() => {
-        window.electron.receive('universes', (data) => {
-            setUniverses(data)
-            console.log(data)
-        })
-        return () => {
-            window.electron.removeListener('universes')
-        }
+        window.electron.receive('universes', (data) => setUniverses(data))
+        return () => window.electron.removeListener('universes')
     }, [])
 
     const makeHex = (num) => {
@@ -24,7 +19,7 @@ export default function Universes() {
         universes.map((universe, i) => {
             if (universe.length > 0) {
                 return (
-                    <div style={{ marginBottom: '10px', display: 'flex' }}>
+                    <div key={'universe' + i} style={{ marginBottom: '10px', display: 'flex' }}>
                         <div style={{ backgroundColor: 'lightGrey', width: '100%' }}>
                             <Universe data={universe} />
                             <div>

@@ -132,11 +132,11 @@ export default function Home() {
         if (newName.length > 15) newName = newName.substring(0, 15)
         newName = newName.replaceAll(/[^0-9.]/g, '')
         let octets = newName.split('.')
-        console.log(octets)
+        //console.log(octets)
         for (let i = 0; i < octets.length; i++) {
             if (parseInt(octets[i]) > 255) octets[i] = '255'
         }
-        console.log(octets)
+        //console.log(octets)
         let out = ''
 
         switch (octets.length) {
@@ -166,7 +166,6 @@ export default function Home() {
     const ipIsValid = (address) => {
         const octets = address.split('.')
         if (octets.length !== 4) return false
-        console.log(octets)
         for (let i = 0; i < octets.length; i++) {
             if (octets[i].length === 0) return false
             if (parseInt(octets[i]) > 255 || parseInt(octets[i]) < 0) return false
@@ -177,7 +176,6 @@ export default function Home() {
     const makeIfaceValue = () => {
         if (currentInterface === null) return null
         else {
-            console.log("IN ELSE")
             return { label: `${currentInterface.name} --- ${currentInterface.address}`, value: { name: currentInterface.name, address: currentInterface.address } }
         }
     }

@@ -3,11 +3,14 @@ const { join } = require('path')
 const URL = require('url')
 const { autoUpdater } = require('electron-updater');
 const { networkInterfaces } = require('os')
-const { decodeArtNet } = require('./artNet')
-const { existsSync, writeFileSync, readFileSync } = require('fs')
-const dgram = require('dgram');
+const { existsSync, writeFileSync, readFileSync } = require('fs');
+const { fork } = require('child_process');
+const { EventEmitter } = require('events');
+const myEmitter = new EventEmitter();
 
-console.log("TOP OF MAIN")
+let win
+let activeInterface = null
+
 const pathToConfigFile = (join(app.getPath('userData'), 'config.json'))
 let config = {}
 const defaultConfig = {
@@ -26,21 +29,6 @@ if (!existsSync(pathToConfigFile)) {
 } else config = JSON.parse(readFileSync(pathToConfigFile))
 
 
-let server = null
-let sender = null
-let outputData = false
-
-
-
-
-let virtualVenueAddress = ''
-
-let win
-
-let universes = []
-for (let i = 0; i < 10; i++) universes.push([])
-let updateUniverses = false
-
 // SECOND INSTANCE
 const gotTheLock = app.requestSingleInstanceLock()
 if (!gotTheLock) app.quit()
@@ -55,7 +43,6 @@ else {
 }
 // END SECOND INSTANCE
 
-let activeInterface = null
 
 const createWindow = () => {
     // Create the browser window.
@@ -76,65 +63,82 @@ const createWindow = () => {
         slashes: true
     });
 
-
-    console.log("Start URL =", startUrl)
-
     win.loadURL(startUrl);
 
     // Emitted when the window is closed.
     win.on('closed', () => app.quit())
     win.on('ready-to-show', () => win.show())
-
 }
 
-const setServer = () => {
-    return new Promise((resolve, reject) => {
-        server = dgram.createSocket('udp4');
-        server.bind(6454, config.interface.address, () => {
-            activeInterface = config.interface
-            resolve(activeInterface)
-        })
-        server.on('error', (err) => {
-            console.log(`server error:\n${err.stack}`);
-            server.close();
-            activeInterface = null
-            reject(err)
-        });
-
-        server.on('message', (msg, rinfo) => {
-            //console.log(`server got: data from ${rinfo.address}:${rinfo.port}`);
-            //console.log(JSON.stringify(decodeArtNet(msg).netSubUni, null, '   '))
-
-            if (outputData) {
-                //console.log("Send Msg To Venue")
-                sender.send(msg, 6454, config.venueIP)
-            }
-            //console.log(message)
-            const message = decodeArtNet(msg)
-            if (updateUniverses) universes[message.netSubUni] = message.payload
-
-        });
-
-        server.on('listening', () => {
-            const address = server.address();
-            console.log(`server listening ${address.address}:${address.port}`);
-        });
-    })
-}
-
-const tryToStartServer = () => {
-    console.log(networkInterfaces())
-    if (networkInterfaces()[config.interface.name] !== undefined) {
-        const theIface = networkInterfaces()[config.interface.name].find(ifa => ifa.address === config.interface.address)
-        if (theIface !== undefined) {
-            setServer()
-            console.log('object')
-        }
-    }
-}
-tryToStartServer()
 
 app.on('ready', () => {
+
+    const artNet = fork(join(__dirname, 'artNet.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
+    artNet.stdout.pipe(process.stdout)
+    artNet.stderr.pipe(process.stdout)
+    artNet.on('message', (msg) => {
+        switch (msg.cmd) {
+            case 'universes':
+                let out = []
+                msg.universes.forEach(element => out.push(element.data || []));
+                win.webContents.send('universes', out)
+                break;
+
+            case 'startResult':
+                if (msg.error) {
+                    console.log('start error', msg.error);
+                    myEmitter.emit('startResult', msg)
+                } else myEmitter.emit('startResult', msg)
+                break;
+
+            case 'sendToVenueResult':
+                if (msg.error) {
+                    console.log('start error', msg.error);
+                    myEmitter.emit('sendToVenueResult', msg)
+                } else myEmitter.emit('sendToVenueResult', msg)
+                break;
+
+            default:
+                break;
+        }
+    });
+    artNet.on('error', (err) => { console.log(err); })
+    artNet.on('close', (err, msg) => { console.log(err, msg); })
+
+    const startUDP = async() => {
+        console.log("IN START UDP");
+        return new Promise(async(resolve, reject) => {
+            const handleResult = (msg) => {
+                myEmitter.removeListener('startResult', handleResult)
+                if (msg.error) reject(msg.error)
+                resolve(msg.result)
+            }
+
+            setTimeout(() => {
+                myEmitter.removeListener('startResult', handleResult)
+                reject('start UDP timed out')
+            }, 5000);
+
+            myEmitter.on('startResult', handleResult)
+
+            artNet.send({ cmd: 'start', config })
+        })
+    }
+
+    const runServer = async() => {
+        try {
+            const result = await startUDP()
+            activeInterface = result
+            console.log('Run Server Result', result);
+        } catch (error) {
+            throw error
+        }
+    }
+
+    if (networkInterfaces()[config.interface.name] !== undefined) {
+        const theIface = networkInterfaces()[config.interface.name].find(ifa => ifa.address === config.interface.address)
+        if (theIface !== undefined) runServer()
+    }
 
     ipcMain.on('reactIsReady', () => {
         //console.log('React Is Ready')
@@ -160,93 +164,67 @@ app.on('ready', () => {
 
     createWindow()
 
+    ipcMain.handle('getInterface', () => activeInterface)
+    ipcMain.handle('getNetworkInterfaces', () => networkInterfaces())
+    ipcMain.handle('getVenueIP', () => config.venueIP)
     ipcMain.handle('setInterface', async(e, data) => {
         return new Promise(async(resolve, reject) => {
             let tempConfig = config
             tempConfig.interface = data
             saveConfig(tempConfig)
-
-            const initServer = async() => {
-                try {
-                    const res = await setServer()
-                    resolve(res)
-                } catch (error) {
-                    reject(error)
-                }
+            try {
+                const result = await startUDP()
+                console.log('Result in setInterface', result);
+                activeInterface = result
+                resolve(activeInterface)
+            } catch (error) {
+                reject(error)
             }
-
-            if (server !== null) {
-                server.close(async() => initServer())
-            } else initServer()
-
         })
+
     })
 
-    ipcMain.handle('getInterface', () => activeInterface)
-
-    ipcMain.handle('getNetworkInterfaces', () => networkInterfaces())
-    ipcMain.handle('setVenueAddress', (e, address) => {
-        virtualVenueAddress = address
-        return virtualVenueAddress
-    })
     ipcMain.handle('setShowUniverses', (e, state) => {
         if (state) {
-            sendUniverses()
-            updateUniverses = true
-
+            artNet.send({ cmd: 'sendUniverses', value: true })
+            return true
         } else {
-            stopSendingUniverses()
-            updateUniverses = false
-
+            artNet.send({ cmd: 'sendUniverses', value: false })
+            return false
         }
         return updateUniverses
     })
 
-    ipcMain.handle('getVenueIP', () => config.venueIP)
-
-    let timer
-
-    const sendUniverses = () => {
-        timer = setInterval(() => win.webContents.send('universes', universes), 100)
-    }
-
-    const stopSendingUniverses = () => {
-        clearInterval(timer);
-    }
-
-    ipcMain.handle('runSystem', async(e, address) => {
-        return new Promise((resolve, reject) => {
-            let tempConfig = config
-            if (address !== tempConfig.venueIP) {
+    const sendToVenue = async(yesNo, address) => {
+        console.log("Send To Venue", yesNo, address);
+        return new Promise(async(resolve, reject) => {
+            if (yesNo) {
+                let tempConfig = config
                 tempConfig.venueIP = address
                 saveConfig(tempConfig)
-                tempConfig = config
             }
-            sender = dgram.createSocket('udp4');
-            sender.bind(6455, tempConfig.interface.address, () => {
-                console.log('Sender Bound')
-                outputData = true
-                resolve('Bound')
-            })
 
-            sender.on('error', (err) => console.log(err))
+            const handleSendToVenueResult = (msg) => {
+                console.log("MESSAGE HERE", msg);
+                myEmitter.removeListener('sendToVenueResult', handleSendToVenueResult)
+                resolve(msg.data)
+            }
+
+            setTimeout(() => {
+                myEmitter.removeListener('sendToVenueResult', handleSendToVenueResult)
+                reject('sendToVenue Timed Out')
+            }, 1000);
+
+            myEmitter.on('sendToVenueResult', handleSendToVenueResult)
+
+            artNet.send({ cmd: 'sendToVenue', value: yesNo, config })
         })
-    })
+    }
 
-    ipcMain.handle('stopSystem', async() => {
-        outputData = false
-        return new Promise((resolve, reject) => {
-            sender.close(() => {
-                sender = null
-                resolve()
-            });
-        })
-
-    })
+    ipcMain.handle('runSystem', async(e, address) => await sendToVenue(true, address))
+    ipcMain.handle('stopSystem', async() => await sendToVenue(false))
 
     app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow() })
-
-
 
 })
 
