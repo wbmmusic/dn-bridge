@@ -30,12 +30,14 @@ let server = null
 let sender = null
 let outputData = false
 
+const numberOfUniverses = 10
+
 let virtualVenueAddress = ''
 
 let win
 
 let universes = []
-for (let i = 0; i < 10; i++) universes.push([])
+for (let i = 0; i < numberOfUniverses; i++) universes.push([])
 let updateUniverses = false
 
 // SECOND INSTANCE
@@ -110,7 +112,11 @@ const setServer = () => {
 
             if (updateUniverses) {
                 const message = decodeArtNet(msg)
-                console.log(message.netSubUni);
+                if (message.netSubUni > numberOfUniverses - 1) {
+                    //console.log(message.netSubUni);
+                    return
+                }
+
                 universes[message.netSubUni] = message.payload
             }
 
