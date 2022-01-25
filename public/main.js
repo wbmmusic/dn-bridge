@@ -70,9 +70,9 @@ const createWindow = () => {
     win.on('ready-to-show', () => win.show())
 }
 
-//const artNet = fork(join(__dirname, 'artNet.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
-artNet.stdout.pipe(process.stdout)
-artNet.stderr.pipe(process.stdout)
+const artNet = fork(join(__dirname, 'artNet.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
+    //artNet.stdout.pipe(process.stdout)
+    //artNet.stderr.pipe(process.stdout)
 
 app.on('ready', () => {
 
