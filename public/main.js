@@ -70,12 +70,12 @@ const createWindow = () => {
     win.on('ready-to-show', () => win.show())
 }
 
+const artNet = fork(join(__dirname, 'artNet.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
+artNet.stdout.pipe(process.stdout)
+artNet.stderr.pipe(process.stdout)
 
 app.on('ready', () => {
 
-    const artNet = fork(join(__dirname, 'artNet.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
-    artNet.stdout.pipe(process.stdout)
-    artNet.stderr.pipe(process.stdout)
     artNet.on('message', (msg) => {
         switch (msg.cmd) {
             case 'universes':
@@ -192,7 +192,6 @@ app.on('ready', () => {
             artNet.send({ cmd: 'sendUniverses', value: false })
             return false
         }
-        return updateUniverses
     })
 
     const sendToVenue = async(yesNo, address) => {
@@ -230,6 +229,7 @@ app.on('ready', () => {
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
-    stopSendingUniverses()
+    //artNet.send({ cmd: 'sendUniverses', value: false })
+    artNet.kill('SIGINT');
     if (process.platform !== 'darwin') app.quit()
 })
