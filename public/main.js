@@ -128,8 +128,8 @@ const tryToStartServer = () => {
     if (networkInterfaces()[config.interface.name] !== undefined) {
         const theIface = networkInterfaces()[config.interface.name].find(ifa => ifa.address === config.interface.address)
         if (theIface !== undefined) {
+            console.log('Starting Server')
             setServer()
-            console.log('object')
         }
     }
 }
