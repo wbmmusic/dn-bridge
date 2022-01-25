@@ -13,10 +13,7 @@ let activeInterface = null
 
 const pathToConfigFile = (join(app.getPath('userData'), 'config.json'))
 let config = {}
-const defaultConfig = {
-    venueIP: '',
-    interface: { name: '', address: '' }
-}
+const defaultConfig = { venueIP: '', interface: { name: '', address: '' } }
 
 const saveConfig = (data) => {
     writeFileSync(pathToConfigFile, JSON.stringify(data, null, '\t'))
@@ -44,6 +41,18 @@ else {
 // END SECOND INSTANCE
 
 
+const artNet = fork(join(__dirname, 'artNet.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
+artNet.stdout.pipe(process.stdout)
+artNet.stderr.pipe(process.stdout)
+const killArtNet = async() => {
+    return new Promise((resolve, reject) => {
+        artNet.on('close', (e) => resolve())
+        artNet.on('exit', (e) => resolve())
+        artNet.kill('SIGINT')
+    })
+
+}
+
 const createWindow = () => {
     // Create the browser window.
     win = new BrowserWindow({
@@ -66,13 +75,14 @@ const createWindow = () => {
     win.loadURL(startUrl);
 
     // Emitted when the window is closed.
+    win.on('close', async(e) => {
+        e.preventDefault()
+        await killArtNet()
+        win.destroy()
+    })
     win.on('closed', () => app.quit())
     win.on('ready-to-show', () => win.show())
 }
-
-const artNet = fork(join(__dirname, 'artNet.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
-    //artNet.stdout.pipe(process.stdout)
-    //artNet.stderr.pipe(process.stdout)
 
 app.on('ready', () => {
 
@@ -229,6 +239,5 @@ app.on('ready', () => {
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
-    artNet.kill('SIGINT');
     if (process.platform !== 'darwin') app.quit()
 })

@@ -123,8 +123,6 @@ const setSender = async(config) => {
     })
 }
 
-
-
 const sendUniverses = () => {
     timer = setInterval(() => process.send({ cmd: 'universes', universes }), 100)
 }
