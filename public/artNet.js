@@ -6,9 +6,10 @@ let sender = null
 let outputData = false
 let timer
 let venueAddress = ''
+const numberOfUniverses = 10
 
 let universes = []
-for (let i = 0; i < 10; i++) universes.push([])
+for (let i = 0; i < numberOfUniverses; i++) universes.push([])
 let updateUniverses = false
 
 const decodeArtNet = (data) => {
@@ -70,6 +71,7 @@ const setServer = async(config) => {
 
             if (updateUniverses) {
                 const message = decodeArtNet(msg)
+                if (message.netSubUni >= numberOfUniverses) return
                 universes[message.netSubUni] = message.payload
             }
 
