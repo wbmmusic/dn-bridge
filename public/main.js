@@ -30,9 +30,6 @@ let server = null
 let sender = null
 let outputData = false
 
-
-
-
 let virtualVenueAddress = ''
 
 let win
@@ -110,8 +107,12 @@ const setServer = () => {
                 sender.send(msg, 6454, config.venueIP)
             }
             //console.log(message)
-            const message = decodeArtNet(msg)
-            if (updateUniverses) universes[message.netSubUni] = message.payload
+
+            if (updateUniverses) {
+                const message = decodeArtNet(msg)
+                console.log(message.netSubUni);
+                universes[message.netSubUni] = message.payload
+            }
 
         });
 
