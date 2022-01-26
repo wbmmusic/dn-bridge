@@ -36,7 +36,7 @@
         "deploy": "electron-builder build -c.extraMetadata.main=build/main.js --publish always",
         "backup": "git add . && git commit -m %NPM_PACKAGE_VERSION% && git push origin main",
         "upload": "yarn build && yarn backup && yarn deploy ",
-        "mac": "yarn build && node copyPlist.js  && yarn deploy",
+        "mac": "yarn && yarn build && node copyPlist.js  && yarn deploy",
         "try": "yarn build && yarn package ",
         "refresh": "yarn upgrade --latest && yarn rebuild"
     },
