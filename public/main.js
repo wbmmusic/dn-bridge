@@ -228,7 +228,7 @@ app.on('ready', () => {
 
 })
 
-app.on('before-quit', () => artNet.kill('SIGKILL'))
+app.on('will-quit', () => artNet.kill('SIGKILL'))
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
