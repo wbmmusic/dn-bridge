@@ -164,7 +164,10 @@ app.on('ready', () => {
             autoUpdater.on('download-progress', (info) => win.webContents.send('updater', 'download-progress', info))
             autoUpdater.on('update-downloaded', (info) => win.webContents.send('updater', 'update-downloaded', info))
 
-            ipcMain.on('installUpdate', () => autoUpdater.quitAndInstall())
+            ipcMain.on('installUpdate', async() => {
+                await killArtNet()
+                autoUpdater.quitAndInstall()
+            })
 
             setTimeout(() => autoUpdater.checkForUpdates(), 3000);
             setInterval(() => autoUpdater.checkForUpdates(), 1000 * 60 * 60);
