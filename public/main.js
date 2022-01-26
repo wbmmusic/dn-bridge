@@ -44,14 +44,6 @@ else {
 const artNet = fork(join(__dirname, 'artNet.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
 artNet.stdout.pipe(process.stdout)
 artNet.stderr.pipe(process.stdout)
-const killArtNet = async() => {
-    return new Promise((resolve, reject) => {
-        artNet.on('close', (e) => resolve())
-        artNet.on('exit', (e) => resolve())
-        artNet.kill('SIGINT')
-    })
-
-}
 
 const createWindow = () => {
     // Create the browser window.
