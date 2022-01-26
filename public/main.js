@@ -75,11 +75,6 @@ const createWindow = () => {
     win.loadURL(startUrl);
 
     // Emitted when the window is closed.
-    win.on('close', async(e) => {
-        e.preventDefault()
-        await killArtNet()
-        win.destroy()
-    })
     win.on('closed', () => app.quit())
     win.on('ready-to-show', () => win.show())
 }
@@ -91,7 +86,11 @@ app.on('ready', () => {
             case 'universes':
                 let out = []
                 msg.universes.forEach(element => out.push(element.data || []));
-                win.webContents.send('universes', out)
+                try {
+                    win.webContents.send('universes', out)
+                } catch (error) {
+
+                }
                 break;
 
             case 'startResult':
@@ -164,10 +163,7 @@ app.on('ready', () => {
             autoUpdater.on('download-progress', (info) => win.webContents.send('updater', 'download-progress', info))
             autoUpdater.on('update-downloaded', (info) => win.webContents.send('updater', 'update-downloaded', info))
 
-            ipcMain.on('installUpdate', async() => {
-                await killArtNet()
-                autoUpdater.quitAndInstall()
-            })
+            ipcMain.on('installUpdate', () => autoUpdater.quitAndInstall())
 
             setTimeout(() => autoUpdater.checkForUpdates(), 3000);
             setInterval(() => autoUpdater.checkForUpdates(), 1000 * 60 * 60);
