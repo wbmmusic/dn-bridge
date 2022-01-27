@@ -1,6 +1,6 @@
 {
     "name": "dn-bridge",
-    "version": "0.1.14",
+    "version": "0.2.0",
     "author": "Marece Williams",
     "description": "ArtNet Bridge",
     "homepage": "./",
