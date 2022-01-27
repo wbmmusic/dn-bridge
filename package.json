@@ -1,8 +1,8 @@
 {
     "name": "dn-bridge",
-    "version": "0.1.13",
+    "version": "0.1.14",
     "author": "Marece Williams",
-    "description": "React and Electron Awesome App",
+    "description": "ArtNet Bridge",
     "homepage": "./",
     "main": "public/main.js",
     "private": true,
@@ -60,7 +60,7 @@
     },
     "devDependencies": {
         "electron": "^16.0.8",
-        "electron-builder": "^22.14.13",
+        "electron-builder": "^22.14.5",
         "electron-notarize": "^1.1.1",
         "electron-rebuild": "^3.2.7",
         "foreman": "^3.0.1"
