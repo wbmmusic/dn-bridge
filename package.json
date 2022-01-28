@@ -31,7 +31,7 @@
         "eject": "react-scripts eject",
         "electron": "electron .",
         "install": "electron-rebuild",
-        "rebuild": "electron-rebuild -f -w serialport",
+        "rebuild": "electron-rebuild -f",
         "package": "electron-builder build -c.extraMetadata.main=build/main.js --publish never",
         "deploy": "electron-builder build -c.extraMetadata.main=build/main.js --publish always",
         "backup": "git add . && git commit -m %NPM_PACKAGE_VERSION% && git push origin main",
@@ -60,7 +60,7 @@
     },
     "devDependencies": {
         "electron": "^16.0.8",
-        "electron-builder": "22.14.5",
+        "electron-builder": "22.13.1",
         "electron-notarize": "^1.1.1",
         "electron-rebuild": "^3.2.7",
         "foreman": "^3.0.1"
