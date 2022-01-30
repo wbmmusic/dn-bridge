@@ -69,7 +69,7 @@ const setServer = async(config) => {
         server.on('message', (msg, rinfo) => {
             if (outputData) sender.send(msg, 6454, venueAddress)
 
-            if (updateUniverses) {
+            if (updateUniverses && msg[9] === 0x50) {
                 const message = decodeArtNet(msg)
                 if (message.netSubUni >= numberOfUniverses) return
                 universes[message.netSubUni] = message.payload
