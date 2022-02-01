@@ -1,0 +1,18 @@
+.dmxChannelValue {
+    background-color: blue;
+    width: 100%;
+    bottom: 0px;
+    position: absolute;
+}
+
+.dmxChannel {
+    height: 64px;
+    flex-grow: 1;
+    position: relative;
+}
+
+.universe {
+    display: flex;
+    border-right: 1px solid black;
+    flex-direction: row;
+}

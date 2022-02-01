@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
+const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
 const { join } = require('path')
 const URL = require('url')
 const { autoUpdater } = require('electron-updater');
@@ -71,15 +72,20 @@ const createWindow = () => {
     win.on('ready-to-show', () => win.show())
 }
 
-app.on('ready', () => {
+app.on('ready', async() => {
+
+    if (true) {
+        await installExtension([REACT_DEVELOPER_TOOLS])
+            .then((name) => console.log(`Added Extension:  ${name}`))
+            .catch((err) => console.log('An error occurred: ', err));
+    }
 
     artNet.on('message', (msg) => {
         switch (msg.cmd) {
             case 'universes':
                 let out = []
-                msg.universes.forEach(element => out.push(element.data || []));
                 try {
-                    win.webContents.send('universes', out)
+                    win.webContents.send('universes', msg.universes)
                 } catch (error) {
 
                 }

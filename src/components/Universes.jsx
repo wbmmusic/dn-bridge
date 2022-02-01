@@ -38,7 +38,7 @@ export default function Universes() {
             </div>
           </div>
         );
-      } else return <div />;
+      } else return <div key={"dummy" + i} />;
     });
 
   return <div>{makeUniverses()}</div>;

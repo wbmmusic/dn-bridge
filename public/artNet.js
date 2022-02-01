@@ -72,7 +72,7 @@ const setServer = async(config) => {
             if (updateUniverses && msg[9] === 0x50) {
                 const message = decodeArtNet(msg)
                 if (message.netSubUni >= numberOfUniverses) return
-                universes[message.netSubUni] = message.payload
+                universes[message.netSubUni] = [...message.payload]
             }
 
         });
