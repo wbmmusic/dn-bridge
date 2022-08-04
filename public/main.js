@@ -55,7 +55,8 @@ const createWindow = () => {
         show: false,
         title: 'DN bridge ' + app.getVersion(),
         webPreferences: {
-            preload: join(__dirname, 'preload.js')
+            preload: join(__dirname, 'preload.js'),
+            sandbox: false
         }
     })
 
