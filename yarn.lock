@@ -3369,10 +3369,10 @@ boolean@^3.0.1:
   resolved "https://registry.yarnpkg.com/boolean/-/boolean-3.2.0.tgz#9e5294af4e98314494cbb17979fa54ca159f116b"
   integrity sha512-d0II/GO9uf9lfUHH2BQsjxzRJZBdsjgsBiW4BvhWk/3qoKwQFjIDVN19PfX8F2D/r9PCMTtLWjYVCFrpeYUzsw==
 
-bootstrap@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.2.0.tgz#838727fb60f1630db370fe57c63cbcf2962bb3d3"
-  integrity sha512-qlnS9GL6YZE6Wnef46GxGv1UpGGzAwO0aPL1yOjzDIJpeApeMvqV24iL+pjr2kU4dduoBA9fINKWKgMToobx9A==
+bootstrap@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.2.1.tgz#45f97ff05cbe828bad807b014d8425f3aeb8ec3a"
+  integrity sha512-UQi3v2NpVPEi1n35dmRRzBJFlgvWHYwyem6yHhuT6afYF+sziEt46McRbT//kVXZ7b1YUYEVGdXEH74Nx3xzGA==
 
 boxen@^5.0.0:
   version "5.1.2"
@@ -4632,10 +4632,10 @@ electron-updater@^5.2.1:
     semver "^7.3.5"
     typed-emitter "^2.1.0"
 
-electron@^20.1.1:
-  version "20.1.1"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-20.1.1.tgz#511ae795b57c5683f22b733d5bf2ba7663136850"
-  integrity sha512-cFTfP4R2O5onaXiu+S20xK7eLpyX/H7PYk7lj9mlHS0ui1+w1jDDWD3RhvjmPgeksPfMAZiRLK8lAQvzSBAKdg==
+electron@^20.1.2:
+  version "20.1.2"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-20.1.2.tgz#ef5502e4a1ea7c08bfbae17a49da861ac9f882dc"
+  integrity sha512-Yz2GAUqgXNr3+7vI+xL3qoCBUw4nVX+MeF/+HNL80y67ZrhMFUbJFirw7Tm6/Kx8r6TBPz0/D3aleeySWFUmzw==
   dependencies:
     "@electron/get" "^1.14.1"
     "@types/node" "^16.11.26"
