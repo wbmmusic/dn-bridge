@@ -4632,10 +4632,10 @@ electron-updater@^5.2.1:
     semver "^7.3.5"
     typed-emitter "^2.1.0"
 
-electron@^20.1.3:
-  version "20.1.3"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-20.1.3.tgz#8a4e3f6945fa7ed06ba54d0f987737b0e057ceb4"
-  integrity sha512-DXBHzAwcpCor9MrxG9QA3Zt0sNcQbJ8ZJCYTC6xpuPe5wugBa6RF3hXqDUYdD2yOCUhjLbD3VASWn0+5LdYT3g==
+electron@^20.1.4:
+  version "20.1.4"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-20.1.4.tgz#d25b549f14376f99a0a239e27d67ef8515b4a5a0"
+  integrity sha512-7ov5kgSQi2JewV5SrVfjGasUvyScjuJrrDCW0rYxtP2SMe3JjoP4rsOOnh3ps2P/Nrdlbv+0ygiK0zp4ARCZ+A==
   dependencies:
     "@electron/get" "^1.14.1"
     "@types/node" "^16.11.26"
@@ -10253,10 +10253,10 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   dependencies:
     minimalistic-assert "^1.0.0"
 
-web-vitals@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/web-vitals/-/web-vitals-3.0.1.tgz#7129668af2d1598ff4a574535a46b1432af337c8"
-  integrity sha512-n8LgBynM5BU4C8ZMiTWPu6zbv31AfPnuNXEjWClvPWD5g8h2WkcecR0EtAiQaiMcj1iG0LADyHndR+MKYu5Zog==
+web-vitals@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/web-vitals/-/web-vitals-3.0.2.tgz#a484109dc5d64bc4924f174267ce20e7cd4c7934"
+  integrity sha512-YygzeCdGpNrCHIjW14AI4SxMX2IcONhDvwhHc9KswCIixfSeVl08WdKDfzZaypq2ynRIG3lzGO3CO5dXYzc9+w==
 
 webidl-conversions@^4.0.2:
   version "4.0.2"
