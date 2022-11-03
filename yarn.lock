@@ -4615,10 +4615,10 @@ electron-updater@^5.3.0:
     semver "^7.3.5"
     typed-emitter "^2.1.0"
 
-electron@^21.2.1:
-  version "21.2.1"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-21.2.1.tgz#a6bbf4fee7ed985c739cc0d87fbef0ea4559da57"
-  integrity sha512-RLuFstGpHk1wtCRm9Kd+mhLjHZ5+m83+GQ/CsVl06OT7ikCT68yXMEgPmSkgmN5WjzlorsK6H5hIk9Sf6P/7Lg==
+electron@^21.2.2:
+  version "21.2.2"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-21.2.2.tgz#e2f3dd014981df555d2cd1655590168b404edae4"
+  integrity sha512-Q0j1tzLTM5JRjSJVAfDSONZgdtuyruHR1pc1y2IbMYQz62pVJWVWAvcJXzpty5iRh2HKzW9+B9WVlmfWNFA8ag==
   dependencies:
     "@electron/get" "^1.14.1"
     "@types/node" "^16.11.26"
@@ -8646,10 +8646,10 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
-react-select@^5.5.9:
-  version "5.5.9"
-  resolved "https://registry.yarnpkg.com/react-select/-/react-select-5.5.9.tgz#02f5664e9feff3cabd28f0748bb0e4a3d5438b7b"
-  integrity sha512-68/sd6KmHS2ISCz9PcDhXidGCjFvc1Q1u8yaxSdo8pT7MkKehID/zMoco304+XtdE79DP0Nq8Fz7ROAb7GJ5Xg==
+react-select@^5.6.0:
+  version "5.6.0"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-5.6.0.tgz#d987f4c86b3dcd32307a0104e503e4e8a9777a34"
+  integrity sha512-uUvP/72rA8NGhOL16RVBaeC12Wa4NUE0iXIa6hz0YRno9ZgxTmpuMeKzjR7vHcwmigpVCoe0prP+3NVb6Obq8Q==
   dependencies:
     "@babel/runtime" "^7.12.0"
     "@emotion/cache" "^11.4.0"
