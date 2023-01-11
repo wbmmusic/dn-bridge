@@ -21,7 +21,7 @@
         "react-dom": "^18.2.0",
         "react-scripts": "5.0.1",
         "react-select": "^5.7.0",
-        "web-vitals": "^3.1.0"
+        "web-vitals": "^3.1.1"
     },
     "scripts": {
         "dev": "nf start",
@@ -58,7 +58,7 @@
         ]
     },
     "devDependencies": {
-        "electron": "^22.0.0",
+        "electron": "^22.0.1",
         "electron-builder": "23.6.0",
         "electron-devtools-installer": "^3.2.0",
         "electron-notarize": "^1.2.2",
