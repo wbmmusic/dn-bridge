@@ -12,7 +12,7 @@
         "@mui/icons-material": "^5.15.15",
         "@mui/material": "^5.15.15",
         "@testing-library/jest-dom": "^6.4.2",
-        "@testing-library/react": "^14.3.0",
+        "@testing-library/react": "^15.0.2",
         "@testing-library/user-event": "^14.5.2",
         "bootstrap": "^5.3.3",
         "electron-updater": "^6.1.8",
@@ -58,7 +58,7 @@
         ]
     },
     "devDependencies": {
-        "electron": "^29.2.0",
+        "electron": "^30.0.0",
         "electron-builder": "24.13.3",
         "electron-devtools-installer": "^3.2.0",
         "electron-notarize": "^1.2.2",
