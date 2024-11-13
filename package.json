@@ -9,9 +9,9 @@
     "dependencies": {
         "@emotion/react": "^11.13.3",
         "@emotion/styled": "^11.13.0",
-        "@mui/icons-material": "^6.1.5",
-        "@mui/material": "^6.1.5",
-        "@testing-library/jest-dom": "^6.6.2",
+        "@mui/icons-material": "^6.1.6",
+        "@mui/material": "^6.1.6",
+        "@testing-library/jest-dom": "^6.6.3",
         "@testing-library/react": "^16.0.1",
         "@testing-library/user-event": "^14.5.2",
         "bootstrap": "^5.3.3",
@@ -20,7 +20,7 @@
         "react-bootstrap": "^2.10.5",
         "react-dom": "^18.3.1",
         "react-scripts": "5.0.1",
-        "react-select": "^5.8.2",
+        "react-select": "^5.8.3",
         "web-vitals": "^4.2.4"
     },
     "scripts": {
@@ -59,7 +59,7 @@
     },
     "devDependencies": {
         "@electron/notarize": "^2.5.0",
-        "electron": "^33.0.2",
+        "electron": "^33.2.0",
         "electron-builder": "25.1.8",
         "electron-devtools-installer": "^3.2.0",
         "foreman": "^3.0.1"
