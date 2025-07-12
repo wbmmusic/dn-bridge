@@ -20,7 +20,7 @@
         "react-bootstrap": "^2.10.10",
         "react-dom": "^19.1.0",
         "react-scripts": "5.0.1",
-        "react-select": "^5.10.1",
+        "react-select": "^5.10.2",
         "web-vitals": "^5.0.3"
     },
     "scripts": {
@@ -59,7 +59,7 @@
     },
     "devDependencies": {
         "@electron/notarize": "^3.0.1",
-        "electron": "^37.2.0",
+        "electron": "^37.2.1",
         "electron-builder": "26.0.12",
         "electron-devtools-installer": "^4.0.0",
         "foreman": "^3.0.1"
