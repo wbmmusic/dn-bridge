@@ -1,6 +1,12 @@
 # DN Bridge
 
-React + Electron desktop application for ArtNet protocol bridging and monitoring in professional lighting systems. This tool receives ArtNet DMX data on one network interface and forwards it to remote venues or different network segments while providing real-time universe monitoring.
+React + Electron + TypeScript desktop application for ArtNet protocol bridging and monitoring in professional lighting systems. This tool receives ArtNet DMX data on one network interface and forwards it to remote venues or different network segments while providing real-time universe monitoring.
+
+## Build System
+
+- **Electron Forge**: Modern build and packaging system
+- **Vite**: Fast development server and optimized production builds
+- **TypeScript**: Type-safe main process with full type checking
 
 ## Key Features
 
@@ -17,7 +23,16 @@ React + Electron desktop application for ArtNet protocol bridging and monitoring
 
 ## Architecture
 
-Electron application with React frontend, forked Node.js child process for ArtNet handling, and comprehensive network interface management designed for professional lighting network bridging.
+Electron Forge + Vite application with React frontend, TypeScript main process, forked Node.js child process for ArtNet handling, and comprehensive network interface management designed for professional lighting network bridging.
+
+## Development
+
+```bash
+pnpm install
+pnpm start       # Start development server
+pnpm make        # Build distributables
+pnpm publish     # Publish to GitHub releases
+```
 
 ## Professional Usage
 
@@ -25,8 +40,16 @@ Used in live events, installations, and venues for ArtNet network bridging betwe
 
 ## Dependencies
 
-- React
-- Electron
-- Bootstrap
-- Material-UI
-- electron-updater
+- React 19
+- Electron 39
+- TypeScript 5.6
+- Vite 7
+- Bootstrap 5
+- Material-UI 7
+- electron-updater 6
+- Electron Forge 7
+
+## Code Signing
+
+- **Windows**: HSM token signing with SHA256 + RFC3161 timestamping
+- **macOS**: Developer ID Application signing with notarization

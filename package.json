@@ -4,7 +4,7 @@
   "author": "Marece Williams",
   "description": "ArtNet Bridge",
   "homepage": "./",
-  "main": "public/main.js",
+  "main": ".vite/build/main.js",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -24,20 +24,18 @@
     "web-vitals": "^5.1.0"
   },
   "scripts": {
-    "dev": "nf start",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "dev": "electron-forge start",
+    "build": "vite build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron": "electron .",
-    "postinstall": "electron-builder install-app-deps",
-    "package": "electron-builder build -c.extraMetadata.main=build/main.js --publish never",
-    "deploy": "electron-builder build -c.extraMetadata.main=build/main.js --publish always",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "deploy": "electron-forge make --publish always",
     "backup": "git add . && git commit -m %NPM_PACKAGE_VERSION% && git push origin main",
-    "upload": "yarn build && yarn backup && yarn deploy ",
-    "mac": "yarn && yarn build && node copyPlist.js  && yarn deploy",
-    "try": "yarn build && yarn package ",
-    "refresh": "yarn upgrade --latest && yarn rebuild"
+    "upload": "pnpm build && pnpm backup && pnpm deploy",
+    "try": "pnpm build && pnpm package",
+    "refresh": "pnpm upgrade --latest"
   },
   "eslintConfig": {
     "extends": [
@@ -58,37 +56,20 @@
     ]
   },
   "devDependencies": {
+    "@electron-forge/cli": "7.10.2",
+    "@electron-forge/maker-deb": "7.10.2",
+    "@electron-forge/maker-dmg": "7.10.2",
+    "@electron-forge/maker-rpm": "7.10.2",
+    "@electron-forge/maker-squirrel": "7.10.2",
+    "@electron-forge/maker-zip": "7.10.2",
+    "@electron-forge/plugin-vite": "7.10.2",
+    "@electron-forge/publisher-github": "7.10.2",
     "@electron/notarize": "^3.1.1",
+    "@types/node": "^24.10.0",
+    "@vitejs/plugin-react": "^5.1.0",
     "electron": "^39.0.0",
-    "electron-builder": "26.0.12",
-    "electron-devtools-installer": "^4.0.0",
-    "foreman": "^3.0.1"
-  },
-  "build": {
-    "productName": "DN bridge",
-    "appId": "com.wbm.dnbridge",
-    "copyright": "WBM Tek",
-    "extends": null,
-    "npmRebuild": false,
-    "afterSign": "./notarize.js",
-    "files": [
-      "build/**/*",
-      "electron/*"
-    ],
-    "mac": {
-      "icon": "public/icon.icns",
-      "hardenedRuntime": true,
-      "gatekeeperAssess": false,
-      "entitlements": "build/entitlements.mac.plist",
-      "entitlementsInherit": "build/entitlements.mac.plist"
-    },
-    "dmg": {
-      "icon": "public/dmg.icns",
-      "sign": false
-    },
-    "win": {
-      "icon": "public/icon.ico"
-    }
+    "typescript": "^5.6.0",
+    "vite": "7.1.12"
   },
   "repository": {
     "type": "git",
